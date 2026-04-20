@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hidetaka Iwatsuki | Healthcare DX Consultant</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d1117;
+    --paper: #f5f0e8;
+    --accent: #b5432a;
+    --muted: #7a7065;
+    --line: #d4cfc6;
+    --teal: #2a7a6e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-sub {
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 20px;
+    font-weight: 300;
+    max-width: 460px;
+    line-height: 1.6;
+  }
+
+  .header-meta {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .header-meta a {
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .header-meta a:hover { border-color: var(--teal); }
+
+  /* ── NAV STRIPE ── */
+  .nav-stripe {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0 60px;
+    animation: fadeUp 0.9s 0.1s ease both;
+    overflow-x: auto;
+  }
+
+  .nav-stripe a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 16px 24px 14px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-stripe a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+
+  /* ── SECTION ── */
+  section {
+    padding: 70px 60px;
+    border-bottom: 1px solid var(--line);
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .about-body p {
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #2a2520;
+    margin-bottom: 20px;
+  }
+
+  .about-body p strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .aside-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px 28px;
+    border-radius: 2px;
+  }
+
+  .aside-card .card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #7a7065;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .aside-stat {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #2a2520;
+  }
+  .aside-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  .aside-stat .num {
+    font-size: 36px;
+    font-weight: 300;
+    color: #f5f0e8;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .aside-stat .desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #7a7065;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  /* ── EXPERTISE ── */
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .expertise-card {
+    background: var(--paper);
+    padding: 36px 30px;
+    transition: background 0.2s;
+  }
+  .expertise-card:hover { background: #ede8df; }
+
+  .expertise-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .expertise-card h3 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .expertise-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── CASE STUDIES ── */
+  .cases {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .case-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .case-item:last-child { border-bottom: none; }
+
+  .case-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    line-height: 1.8;
+    padding-top: 4px;
+  }
+
+  .case-tag .country {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .case-content h3 {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .case-content p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 14px;
+  }
+
+  .case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    border-radius: 20px;
+  }
+
+  /* ── WHY JAPAN ── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .why-text h2 { margin-bottom: 20px; }
+
+  .why-text p {
+    font-size: 17px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .bridge-list {
+    list-style: none;
+    margin-top: 28px;
+  }
+
+  .bridge-list li {
+    font-size: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    font-weight: 300;
+  }
+
+  .bridge-list li::before {
+    content: '→';
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .quote-block {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px 44px;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .quote-block::before {
+    content: '"';
+    font-size: 120px;
+    color: var(--accent);
+    opacity: 0.3;
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+  }
+
+  .quote-block p {
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: #d4cfc6;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quote-block .quote-attr {
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #7a7065;
+    text-transform: uppercase;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 90px 60px;
+    background: var(--ink);
+    color: var(--paper);
+    border-bottom: none;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .cta-section h2 {
+    color: var(--paper);
+    font-size: clamp(28px, 4vw, 48px);
+  }
+
+  .cta-section p {
+    font-size: 16px;
+    color: #7a7065;
+    font-weight: 300;
+    margin-top: 16px;
+    max-width: 500px;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 200px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--paper);
+  }
+  .btn-primary:hover { background: #9a3522; }
+
+  .btn-outline {
+    background: transparent;
+    color: #7a7065;
+    border: 1px solid #2a2520;
+  }
+  .btn-outline:hover { border-color: #7a7065; color: var(--paper); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0a0d12;
+    color: #4a4540;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  section:nth-child(2) { animation-delay: 0.15s; }
+  section:nth-child(3) { animation-delay: 0.25s; }
+  section:nth-child(4) { animation-delay: 0.35s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    header, section, .cta-section { padding: 48px 24px; }
+    .nav-stripe { padding: 0 24px; }
+    header, .about-grid, .why-grid, .cta-section { grid-template-columns: 1fr; }
+    .expertise-grid { grid-template-columns: 1fr; }
+    .header-meta { text-align: left; }
+    .case-item { grid-template-columns: 1fr; gap: 12px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="top">
+  <div>
+    <div class="header-eyebrow">Healthcare &amp; Life Science Consulting · Japan</div>
+    <h1>Hidetaka<br><em>Iwatsuki</em></h1>
+    <p class="header-sub">
+      Bridging Japan's battle-tested healthcare DX expertise with the rapidly evolving hospital markets of Southeast Asia.
+    </p>
+  </div>
+  <div class="header-meta">
+    <div>Osaka · Yokohama, Japan</div>
+    <div>Available for SE Asia engagements</div>
+    <br>
+    <div><a href="https://iwatsuki55.github.io" target="_blank">iwatsuki55.github.io</a></div>
+    <div><a href="https://opexpark.co.jp" target="_blank">OPExPARK Affiliate</a></div>
+    <br>
+    <div style="color: #2a7a6e;">✉ [your email]</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav-stripe">
+  <a href="#about">About</a>
+  <a href="#expertise">Expertise</a>
+  <a href="#work">Selected Work</a>
+  <a href="#why">Japan Advantage</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div class="about-body">
+      <h2>A consultant who builds,<br>not just advises.</h2>
+      <p>
+        I am an independent healthcare and life science consultant based in Japan, operating under <strong>IWATSUKI.Co</strong>. With over 15 years across pharmaceutical marketing, medical device sales, CRO/CSO operations, and hospital digital transformation, I work at the intersection of clinical operations and technology.
+      </p>
+      <p>
+        My practice is hands-on: I design strategies, build the deliverables, and stay until implementation is real. Recent engagements include a full <strong>digital transformation roadmap for a specialized ophthalmology hospital</strong> — from staff workflow interviews and EHR vendor evaluation to AI-powered appointment systems and board-level proposals.
+      </p>
+      <p>
+        I also develop digital tools directly: a <strong>pharmacy questionnaire app</strong> for Japanese dispensing pharmacies (with regulatory CSV export), a <strong>drug interaction AI checker</strong>, and operational task management systems deployed for hospital clients.
+      </p>
+      <p>
+        Through my affiliation with <strong>OPExPARK</strong>, I connect with a network of neurosurgeons and surgical video platform operators across Japan — a unique bridge for Southeast Asian institutions seeking Japanese clinical knowledge transfer.
+      </p>
+    </div>
+    <div>
+      <div class="aside-card">
+        <div class="card-label">By the numbers</div>
+        <div class="aside-stat">
+          <div class="num">15+</div>
+          <div class="desc">Years in healthcare &amp; pharma</div>
+        </div>
+        <div class="aside-stat">
+          <div class="num">3</div>
+          <div class="desc">Digital products shipped (2024–25)</div>
+        </div>
+        <div class="aside-stat">
+          <div class="num">22</div>
+          <div class="desc">Slides. One hospital DX proposal accepted.</div>
+        </div>
+        <div class="aside-stat">
+          <div class="num">🇯🇵→🌏</div>
+          <div class="desc">Now expanding to SEA markets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-label">Expertise</div>
+  <div class="expertise-grid">
+    <div class="expertise-card">
+      <span class="expertise-icon">🏥</span>
+      <h3>Hospital DX Strategy</h3>
+      <p>End-to-end digital transformation for clinical facilities — workflow analysis, EHR selection, vendor management, staff change management, and board-ready proposals.</p>
+    </div>
+    <div class="expertise-card">
+      <span class="expertise-icon">💊</span>
+      <h3>Pharma &amp; MedTech Marketing</h3>
+      <p>Go-to-market strategy, KOL engagement, speaker programs, and medical education for pharmaceutical and medical device companies entering or scaling in Japan.</p>
+    </div>
+    <div class="expertise-card">
+      <span class="expertise-icon">⚙️</span>
+      <h3>Digital Product Development</h3>
+      <p>Hands-on build of healthcare web apps, AI-integrated tools, and clinical workflow systems — from prototype to deployed product.</p>
+    </div>
+    <div class="expertise-card">
+      <span class="expertise-icon">🔬</span>
+      <h3>Regulatory &amp; Compliance</h3>
+      <p>MHLW medical information security guideline compliance (Ver. 6.0), BCP documentation, and operational policy frameworks for Japanese healthcare institutions.</p>
+    </div>
+    <div class="expertise-card">
+      <span class="expertise-icon">🌐</span>
+      <h3>Japan Market Entry Support</h3>
+      <p>For Southeast Asian companies seeking to partner with, source from, or benchmark against Japan's healthcare system — market intelligence, introductions, and advisory.</p>
+    </div>
+    <div class="expertise-card">
+      <span class="expertise-icon">🎥</span>
+      <h3>Surgical Education &amp; KOL Networks</h3>
+      <p>Via OPExPARK: access to Japan's neurosurgeon community, surgical video content platforms, and specialist networks for clinical knowledge exchange programs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED WORK -->
+<section id="work">
+  <div class="section-label">Selected Work</div>
+  <div class="cases">
+    <div class="case-item">
+      <div class="case-tag">
+        <span class="country">🇯🇵</span>
+        Hospital DX<br>2024–2025
+      </div>
+      <div class="case-content">
+        <h3>Ophthalmology Hospital — Full Digital Transformation Roadmap</h3>
+        <p>Led a comprehensive DX engagement for a specialized eye clinic group (Shozan-kai Medical Corporation). Conducted structured staff interviews to map workflow bottlenecks and single-point-of-failure risks, evaluated EHR vendors including AI integration feasibility with Fujitsu, and assessed appointment system providers (Doctor Cube, TellMe Eye). Delivered a 22-slide board proposal and a staff interview infographic, with an HTML-based task management system deployed on GitHub Pages.</p>
+        <div class="case-tags">
+          <span class="tag">EHR Integration</span>
+          <span class="tag">AI Appointment Systems</span>
+          <span class="tag">Staff Workflow Analysis</span>
+          <span class="tag">Board Proposal</span>
+          <span class="tag">Task Management App</span>
+        </div>
+      </div>
+    </div>
+    <div class="case-item">
+      <div class="case-tag">
+        <span class="country">🇯🇵</span>
+        Digital Product<br>2024–2025
+      </div>
+      <div class="case-content">
+        <h3>Pharmacy Questionnaire App — NSIPS-Compliant</h3>
+        <p>Designed and co-developed a tablet-based patient intake app for Japanese dispensing pharmacies. Features include first-visit/return-visit modes, pharmacist PIN-lock view separation, Claude API voice transcription (resolving iOS Safari Web Speech API incompatibility), and NSIPS v1.06-compliant CSV export for integration with pharmacy management systems including MEDIXS.</p>
+        <div class="case-tags">
+          <span class="tag">Regulatory CSV Export</span>
+          <span class="tag">AI Voice Transcription</span>
+          <span class="tag">iOS-Compatible</span>
+          <span class="tag">Pharmacy Operations</span>
+        </div>
+      </div>
+    </div>
+    <div class="case-item">
+      <div class="case-tag">
+        <span class="country">🇯🇵</span>
+        Security &amp; Compliance<br>2024
+      </div>
+      <div class="case-content">
+        <h3>MHLW Security Guideline Compliance — Small Hospital</h3>
+        <p>Supported a small hospital in achieving compliance with Japan's Ministry of Health, Labour and Welfare medical information system security guidelines (Version 6.0). Produced an Excel compliance checklist, BCP Word document, and a 20-article operational management policy aligned to official MHLW templates. Designed for practical implementation rather than checkbox compliance.</p>
+        <div class="case-tags">
+          <span class="tag">MHLW Compliance</span>
+          <span class="tag">BCP Planning</span>
+          <span class="tag">Policy Documentation</span>
+          <span class="tag">Security Audit</span>
+        </div>
+      </div>
+    </div>
+    <div class="case-item">
+      <div class="case-tag">
+        <span class="country">🇯🇵</span>
+        AI Product<br>2024
+      </div>
+      <div class="case-content">
+        <h3>Drug Interaction AI Checker — Web App Launch</h3>
+        <p>Built and launched "くすり飲み合わせナビ," a consumer drug interaction checker using a two-agent Anthropic API architecture (Claude Haiku for cost efficiency). Deployed on Render (backend) and GitHub Pages (frontend), with A8.net affiliate monetization and full Google Analytics and Search Console integration.</p>
+        <div class="case-tags">
+          <span class="tag">Claude API</span>
+          <span class="tag">Multi-agent Architecture</span>
+          <span class="tag">SEO Setup</span>
+          <span class="tag">Monetization</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY JAPAN -->
+<section id="why">
+  <div class="section-label">The Japan Advantage</div>
+  <div class="why-grid">
+    <div class="why-text">
+      <h2>Why Japanese healthcare expertise matters for Southeast Asia right now.</h2>
+      <p>
+        Japan navigated its own hospital digitalization challenge years before most of Southeast Asia. The lessons — from EHR standardization politics to staff resistance management and vendor lock-in pitfalls — are directly transferable.
+      </p>
+      <p>
+        As Thailand, Vietnam, and neighboring markets accelerate their healthcare DX agendas, the gap between aspiration and execution is where consultants add the most value. I bridge that gap with real implementation experience, not frameworks borrowed from textbooks.
+      </p>
+      <ul class="bridge-list">
+        <li>Japan's EHR rollout challenges map directly to what Thai and Vietnamese hospitals face today</li>
+        <li>Japanese quality management culture (kaizen, zokuninuka risk mapping) translates to operational gains in SEA clinical settings</li>
+        <li>OPExPARK's surgical networks create unique knowledge transfer pathways for SEA institutions seeking Japan benchmarking</li>
+        <li>Bilingual capability (Japanese + English) enables smooth coordination between Japanese vendors and local SEA hospital teams</li>
+      </ul>
+    </div>
+    <div class="quote-block">
+      <p>The most valuable thing I can offer Southeast Asian hospital leaders is not advice about what to do — it is the scar tissue from having done it, in one of the world's most demanding healthcare regulatory environments.</p>
+      <div class="quote-attr">— Hidetaka Iwatsuki, IWATSUKI.Co</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div>
+    <h2>Ready to explore<br><em>what's possible?</em></h2>
+    <p>
+      I am currently accepting new consulting engagements in Thailand and Vietnam. Initial consultations are complimentary. Let's discuss your hospital's digital transformation priorities over a 30-minute call.
+    </p>
+  </div>
+  <div class="cta-buttons">
+    <a href="mailto:[your-email]" class="btn btn-primary">Send an Enquiry</a>
+    <a href="https://iwatsuki55.github.io" target="_blank" class="btn btn-outline">View Japanese Site</a>
+    <a href="https://opexpark.co.jp" target="_blank" class="btn btn-outline">OPExPARK Network</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 IWATSUKI.Co · Hidetaka Iwatsuki</div>
+  <div>Osaka · Yokohama, Japan · Available remotely &amp; on-site SEA</div>
+</footer>
+
+</body>
+</html>
